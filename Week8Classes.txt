@@ -1,0 +1,115 @@
+"""This class allows for the user to convert time distance or temp 
+	from imperial to metric or metric to imperial"""
+'''
+	Imperial.true_false
+	Imperial.print_statement
+	Imperial.temprature
+	Imperial.distance
+	Imperial.time
+	'''
+class Imperial:
+	def __init__(self, value, unit_direction):
+		"""shared varables"""
+		self.unit_direction = unit_direction
+		self.value = value
+		
+
+	def true_false(metric):
+		"""this takes the users input at turns it into True/False"""
+		if metric == "yes" or metric == "Yes":
+			metric = True
+			return metric
+		if metric == "no" or metric == "No":
+			metric = False
+			return metric
+
+	def print_statement(convertion):
+		"""Depending on the covertion done it will print out an aproprate statement"""
+		if convertion == "temperature":
+			print('Pleas Enter "Yes" to go from Fahrenheit to celsius or Enter "No" for Celsius to Fahrenheit')
+		if convertion == "distance":
+			print('Pleas Enter "Yes" to go from Miles to Km or Enter "No" for Km to Miles')
+		if convertion == "time":
+			print('Pleas Enter "Yes" to go from am-pm to Military Time or Enter "No" for Military Time to am-pm')
+
+
+
+
+	def temperature(self):
+		"""converts temprature into the fahrenhit or celcius"""
+		value = int(self.value)
+		if self.unit_direction == True:
+			t = value
+			converted_value = (t-32)/1.8
+			show_data = f"Degress C= {converted_value}"
+			print(show_data)
+			return show_data
+			#return self.show_data
+		if self.unit_direction == False:
+			t = value
+			converted_value = (t*1.8)+32
+			show_data = f"Degress F= {converted_value}"
+			print(f"Degress F= {converted_value}")
+			return show_data
+
+
+	def distance(self):
+		"""converts distance from mm to inches"""
+		value = int(self.value)
+		if self.unit_direction == True:
+			d = value
+			converted_value = d*1.609
+			show_data = f"Km = {converted_value}"
+			print(f"Km = {converted_value}")
+			return show_data
+		if self.unit_direction == False:
+			d = value
+			converted_value = d*.621
+			show_data = f"miles = {converted_value}"
+			print(f"miles = {converted_value}")
+			return show_data
+
+	def time(self):
+		"""converts time between military time and standard time"""
+		if self.unit_direction == True:		# standard time input
+			if len(self.value) == 6:
+				value = "0"+ self.value
+			v = self.value
+			tb = v[:2]
+			tm = v[3:5]
+			am_pm = v[len(v)-2:]
+			if am_pm == 'am':
+				if tb == "12":
+					tb = "00"
+				mt = tb +':'+ tm	
+			if am_pm == 'pm':
+				if tb == "12":
+					tb = "00"
+				tb = int(tb)
+				tb = tb + 12
+				tb = str(tb)
+				mt = tb + ':'+ tm 
+			show_data = mt
+			print(mt)
+			return show_data
+		if self.unit_direction == False:		#military time
+			v = self.value.replace(":", "")
+			tb = int(v[:2])
+			tm = v[2:5]
+			if tb <= 11:
+				if tb <= 9:
+					tb = "0" + str(tb) 
+				if tb == "00":
+					tb = "12"
+				st = tb + ":" + tm + "am"
+				show_data = st
+				print(st)
+				return show_data
+			elif tb >= 13:
+				tb = tb - 12
+				tb = str(tb)
+				st = tb + ":" + tm + "pm"
+				show_data = st
+				print(st)
+				return show_data
+

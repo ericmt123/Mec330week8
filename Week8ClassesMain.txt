@@ -1,0 +1,18 @@
+from Week8Classes import Imperial
+
+while True:
+	print(f"\nWould you like to convert temperature, distance, or time?")	#	Informs usere what information is needed
+	conversion = input("Enter here: ")										#	user input
+	Imperial.print_statement(conversion)									#	picks what to inform the user to input
+	metric = input("Enter here: ")											#	user input 
+	metric = Imperial.true_false(metric)									#	turns to true or false
+# give an example for time to make it easier to understand
+	if conversion == "time" and metric == True:								
+		print("example:  am-pm: 12:50am")
+	if conversion == "time" and metric == False:
+		print("example:   Military Time: 23:55 or 2355")
+	value = input("Plese enter value to be converted: ")		# number to be converted 
+
+	d = Imperial(value, metric)									# sets up values in classes
+	print(d)													# shows values
+	getattr(d, conversion)()

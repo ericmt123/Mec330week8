@@ -1,0 +1,70 @@
+import tkinter as tk
+import requests
+from tkinter import font
+from Week8Classes import Imperial
+
+HIGHT = 700			# starting size for GUI
+WIDTH = 800
+
+
+def test_function(entry, entry_two, entry_three):
+	"""this is the main code that calles everything to do the computing. Just poorly labeled because it started out as a test"""
+	conversion = entry_two						#pulls in if its a temp, time, distance
+	Imperial.print_statement(conversion)		#depending on convertion it prints something differt
+	metric = entry_three
+	metric = Imperial.true_false(metric)		#makes it a true of false instead of a yes or no
+	value = entry
+	d = Imperial(value, metric)					#sets values in the class
+	c = getattr(d, conversion)()				#converts the values
+	print(c)
+	label['text'] = c
+
+
+root = tk.Tk()												# start of GUI
+
+canvas = tk.Canvas(root, height= HIGHT, width= WIDTH)		# window size
+canvas.pack()
+
+background_image = tk.PhotoImage(file="math.png")			# Background
+backgroun_label = tk.Label(root, image=background_image)
+backgroun_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+frame = tk.Frame(root, bg= 'gray', bd=5)					# window on the house/background
+frame.place(relx= 0.5, rely=.1, relwidth= .75, relheight=.1, anchor="n")
+
+
+entry = tk.Entry(frame, font=40)							# user input
+entry.place(relwidth= 0.65, relheight=1)
+
+#button is pressed and takes user inputs then outpues. lambda is used to update when it changes
+button = tk.Button(frame, text= "Get Conversion", font=40, command=lambda: test_function(entry.get(), entry_left.get(), entry_right.get() ))
+button.place(relx=0.7, relwidth=.3, relheight=1)
+#button.grid(row=0, column=0)
+
+mid_frame_left = tk.Frame(root, bg="gray", bd=5 )
+mid_frame_left.place(relx=0.5, rely=0.20, relwidth=0.75/2, relheight=0.1, anchor = "ne" )
+
+entry_left = tk.Entry(mid_frame_left, font=20)
+entry_left.place(relwidth= 0.5, relheight=1)
+
+label_left = tk.Label(mid_frame_left, font=('Courier', 10), text= f"Conversion Type: \nTemperature \nDistance \nTime ", bg = "gray")
+label_left.pack(side= "right", fill = "both")
+
+mid_frame_right = tk.Frame(root, bg="gray", bd=5 )
+mid_frame_right.place(relx=0.5, rely=0.20, relwidth=0.75/2, relheight=0.1, anchor = "nw" )
+
+entry_right = tk.Entry(mid_frame_right, font=5)
+entry_right.place(relwidth= 0.22, relheight=1)
+
+label = tk.Label(mid_frame_right, text= f"Please type: \nyes= Imperial to metric \nno = Metric to Imperial ", bg = "gray", font= ('Courier', 10))
+label.pack(side= "right", fill = "both")
+
+lower_frame = tk.Frame(root, bg="gray", bd=5)
+lower_frame.place(relx=0.5, rely=0.4, relwidth=0.75, relheight=0.4, anchor = "n" )
+
+label = tk.Label(lower_frame, font=("Courier", 20))			# outputs data onto window
+label.place(relwidth=1, relheight=1)
+
+root.mainloop()   											# ends GUI loop
+
+
